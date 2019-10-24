@@ -6,10 +6,16 @@ class SlotMachine {
         this.reel1 = ["Wild","Star","Bell","Shell","Seven","Cherry","Bar","King","Queen","Jack"]
         this.reel2 = ["Wild","Star","Bell","Shell","Seven","Cherry","Bar","King","Queen","Jack"] 
         this.reel3 = ["Wild","Star","Bell","Shell","Seven","Cherry","Bar","King","Queen","Jack"]
+
+        this.scores = {"Wild" : 100, "Star" : 90, "Bell" : 80, "Shell" : 70, "Seven" : 60, "Cherry" : 50,
+                       "Bar" : 40, "Shell" : 30, "King" : 20, "Queen" : 10, "Jack" : 0}
+
         this.playerName = playerName
         this.currentReel = []
         this.spinCounter = 0
         this.spinningCount = 0
+        this.currentScore = 0
+        this.totalScore = 0
     }
 
     shuffleArray(arrayToShuffle) {
@@ -21,13 +27,17 @@ class SlotMachine {
         }
     }
 
+    setScore() {
+        this.currentScore = (this.scores[this.reel1[0]] + this.scores[this.reel2[0]] + this.scores[this.reel3[0]])
+        this.totalScore = this.totalScore + this.currentScore
+    }
+
     spin() {
         for (let i = 0; i < 10; i++) {
+            [this.reel1, this.reel2, this.reel3].forEach(this.shuffleArray)
             console.clear()
-            this.shuffleArray(this.reel1)
-            this.shuffleArray(this.reel2)
-            this.shuffleArray(this.reel3)
             console.log(`${this.reel1[0]} | ${this.reel2[0]} | ${this.reel3[0]}`)
+            this.currentReel = [this.reel1[0], this.reel2[0], this.reel3[0]]
             this.spinningCount++
         }
     }
@@ -41,9 +51,11 @@ class SlotMachine {
                 while(this.spinningCount < 750) {
                     setInterval(this.spin(), 2500)
                 } 
-                window.confirm(` Score is: --\nTotal Score is: --\nClick for next spin`)
+                this.setScore()
+                window.alert(` Score is: ${this.currentScore}\nTotal Score is: ${this.totalScore}\nClick for next spin`)
                 this.spinningCount = 0;
             }
+            window.alert(`Game over, your score is ${this.totalScore}`)
         }
     }
 }
