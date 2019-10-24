@@ -1,0 +1,26 @@
+<head>
+    <title>Slot Machine!</title>
+    <meta charset="utf-8"</charset>
+</head>
+
+<body>       
+    <div id="mocha"></div>
+    <script src="https://unpkg.com/chai/chai.js"></script>
+    <script src="https://unpkg.com/mocha/mocha.js"></script>
+
+    <script class="mocha-init">
+        mocha.setup('bdd');
+        mocha.checkLeaks();
+    </script>
+
+    <script src="slotmachine.js"></script>
+        
+    <script>
+        const expect = chai.expect
+    </script>
+    <script src="tests.js"></script>
+    <script class="mocha-exec">
+         mocha.run();
+    </script>
+
+</body>
